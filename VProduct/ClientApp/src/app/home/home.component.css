@@ -1,0 +1,17 @@
+body {
+}
+
+h1{
+    text-align:center;
+}
+
+.MainTitle{
+    text-align: center;
+    padding-top: 10%;
+    font-size:larger;
+}
+
+.MainTitle p{
+    padding-top: 15px;
+    font-weight: bold;
+}

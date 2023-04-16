@@ -1,0 +1,19 @@
+body {
+    padding-top: 15px;
+    text-align: left;
+}
+
+p{
+    font-weight: bold;
+}
+
+.addBtn {
+  background: green;
+  border-radius: 5px;
+}
+
+.rmvBtn {
+  background: red;
+  border-radius: 5px;
+}
+

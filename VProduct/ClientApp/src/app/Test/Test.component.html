@@ -1,0 +1,10 @@
+<h1>Losowa książka</h1>
+<p>Oto rezultat:</p>
+
+<p *ngIf="!result"><em>Loading...</em></p>
+
+<div *ngIf="result">
+  {{ result }}
+  <div>Tytuł : {{ result.id }}</div>
+  <div>Autor : {{ result.name }}</div>
+</div>

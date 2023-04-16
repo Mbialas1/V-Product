@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+  <button class="addBtn" (click)="displayCategoryForAdd()">Add category</button>
+  <span>|</span>
+  <button class="rmvBtn" (click)="displayCategoryForDelete()">Remove category</button>
+  <span>||</span>
+  <button class="addBtn" (click)="displayProductForAdd()">Add product</button>
+  <span>|</span>
+  <button class="rmvBtn" (click)="displayProductForDelete()">Remove product</button>
+
+  <div *ngIf="category.showFormForAdd">
+    <form (submit)="category.submitNewCategory()">
+      <label>Add category:</label>
+      <p>Name: <input [(ngModel)]="category.name" name="name" /></p>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+  <div *ngIf="product.showFormForAdd">
+    <form (submit)="product.submitNewProduct()">
+      <p>Add product:</p>
+      <p>Name: <input [(ngModel)]="product.name" name="name" /></p>
+      <p>Price: <input [(ngModel)]="product.price" name="price" /></p>
+      <p>Calories: <input [(ngModel)]="product.calories" name="calories" /></p>
+      <p>
+        Category:
+        <select [(ngModel)]="selectedCategory" name="selectedCategory">
+          <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
+        </select><button type="button" (click)="addCategory(selectedCategory)">Add category</button>
+      </p>
+      <p *ngIf="product.chooseCategories.length > 0">
+        Chooose category:
+      </p>
+      <ul>
+        <li *ngFor="let chooseCategory of product.chooseCategories; trackBy: trackByAddCategory;">{{chooseCategory.name}}</li>
+      </ul>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+  <div *ngIf="product.showFormForDelete">
+    <form (submit)="product.submitDeleteProduct()">
+      <p>Delete product:</p>
+      <p>
+        Category:
+        <select (change)="getProductsFromCategory($event)" [(ngModel)]="selectedCategory" name="selectedCategory" #select>
+          <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
+        </select>
+      </p>
+      Product: <select [(ngModel)]="selectedProduct" name="selectedProduct">
+        <option disabled selected value></option>
+        <option *ngFor="let product of products" [ngValue]="product">{{product.name}}</option>
+      </select>
+      <button type="submit">Remove</button>
+    </form>
+  </div>
+  <div *ngIf="category.showFormForDelete">
+    <form (submit)="category.submitDeleteCategory($event, select)">
+      <p>Delete category:</p>
+      <p>
+        Category:
+        <select [(ngModel)]="selectedCategory" name="selectedCategory" #select>
+          <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
+        </select><button type="submit">Delete category</button>
+      </p>
+      <p style="color:red; font-style:italic;">Warrning! If you delete category. Products from category will be remove too.</p>
+    </form>
+  </div>
+</body>
+</html>
