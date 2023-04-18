@@ -105,6 +105,11 @@ export class Category {
   submitNewCategory(): void {
     this.setItems();
 
+    if (!this.name || this.name.trim() === "") {
+      alert("Name of category is empty!");
+      return;
+    }
+
     this.http.post('api/category/AddNewCategory', this.items).subscribe((response) => {
       console.log('Dodano nowy element:', response);
       this.name = '';
@@ -114,10 +119,16 @@ export class Category {
   }
 
   submitDeleteCategory(event: Event, select: HTMLSelectElement): void {
-    //Sprawdzić
+
+    if (select.options.selectedIndex === -1) {
+      alert("Choose category");
+      return;
+    }
+
     event.preventDefault();
-    const selectedCategoryId = select;
-    console.log(selectedCategoryId);
+    const selectValue = select.value;
+    const index = selectValue.indexOf(":");
+    const selectedCategoryId = Number(selectValue.slice(index + 1));
     this.http.delete(`api/category/DeleteCategoryById?categoryId=${selectedCategoryId}`).subscribe((response) => {
       console.log('Delete succes!:', response);
       select.options.remove(select.selectedIndex);
@@ -132,6 +143,7 @@ export class Product {
   showFormForAdd: boolean = false;
   showFormForDelete: boolean = false;
   name: string = '';
+  id: number = 0;
   price: number = 0.00;
   calories: number = 0;
   categories: any[] = [];
@@ -172,18 +184,39 @@ export class Product {
 
   submitNewProduct(): void {
     this.setItems();
+
+    if (this.name.trim() === '' || this.chooseCategories.length < 1) {
+      alert("Name and category is required for add product");
+      return;
+    }
+ 
     this.http.post('api/product/AddNewProduct', this.items).subscribe((response) => {
       console.log('Dodano nowy element:', response);
       this.name = '';
       this.price = 0;
       this.calories = 0;
+      this.chooseCategories = [];
     }, (error) => {
       console.error('Something wrong => ', error);
     });
   }
 
-  submitDeleteProduct(): void {
-    //Usunac potem z listy!
-    
+  submitDeleteProduct(event: Event, select: HTMLSelectElement): void {
+
+    if (select.options.selectedIndex === -1) {
+      alert("Choose product for remove");
+      return;
+    }
+
+    event.preventDefault();
+    const selectValue = select.value;
+    const index = selectValue.indexOf(":");
+    const selectedProductId = Number(selectValue.slice(index + 1));
+    this.http.delete(`api/product/DeleteProduct?productId=${selectedProductId}`).subscribe((response) => {
+      console.log('Delete succes!:', response);
+      select.options.remove(select.selectedIndex);
+    }, (error) => {
+      console.error('Something wrong => ', error);
+    });
   }
 }

@@ -5,6 +5,7 @@ namespace VProduct.Helper
     public class Helper
     {
         public static readonly string NAME_OF_DATABASE = "ConnetionDBProduct";
+        public static readonly string KEY_OF_CACHE_CATEGORIES = "categoriesCache";
     }
 
     public class VProductAPI

@@ -6,6 +6,9 @@ using VProduct;
 using VProduct.Data;
 using VProduct.Models;
 using VProduct.Helper;
+using Microsoft.AspNetCore.Hosting;
+using StackExchange.Redis;
+using VProduct.Cache;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,3 +59,8 @@ app.MapRazorPages();
 app.MapFallbackToFile("index.html");
 
 app.Run();
+
+builder.Services.AddStackExchangeRedisCache(options =>
+    {
+    options.Configuration = "localhost";
+});

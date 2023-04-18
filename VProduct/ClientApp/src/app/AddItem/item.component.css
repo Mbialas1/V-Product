@@ -17,3 +17,7 @@ p{
   border-radius: 5px;
 }
 
+input:invalid {
+  border-color: red;
+  background: red;
+}

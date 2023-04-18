@@ -20,6 +20,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +40,10 @@
     <TypeScriptCompile Include="ClientApp\src\app\AddItem\item.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ShoppingCart\shoppingCart.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Test\Test.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
